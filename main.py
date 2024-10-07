@@ -1,6 +1,6 @@
 import random
 from click.termui import clear, pause
-from lib.behavior import Human
+from lib.classes.humanClass import Human
 
 
 def display_intro():

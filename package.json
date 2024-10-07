@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "format": "black **/**/*.py",
+    "lint": "flake8 . > flake8-report.txt",
+    "test-human": "python -m unittest tests/humanClass.test.py",
+    "build": "python setup.py sdist bdist_wheel",
+    "deploy": "twine upload dist/*"
+  },
+  "devDepedencies": {}
+}

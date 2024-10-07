@@ -57,7 +57,7 @@ class Human:
         self.gain_xp(3 * hours)
 
     def shop(self, item):
-        inventory = {"Axe": 10, "Pickaxe": 15}
+        inventory = {"Axe": 10, "Pickaxe": 15, "Golden Apple": 100}
         if item in inventory and self.coins >= inventory[item]:
             self.coins -= inventory[item]
             self.inventory.append(item)
@@ -78,7 +78,8 @@ class Human:
             print(f"{self.name} needs an Axe to chop a tree.")
 
     def lucky_box(self):
-        print("Opening lucky box...")
+        print("Opening lucky box with 10 coins...")
+        self.coins -= 10
         win = random.choice([True, False])
         if win:
             print("Nice, You win!")
@@ -116,6 +117,8 @@ class Human:
             "thirst": self.thirst,
             "energy": self.energy,
             "inventory": self.inventory,
+            "xp": self.xp,
+            "level": self.level
         }
         with open(filename, "w") as f:
             json.dump(state, f)
@@ -131,5 +134,7 @@ class Human:
         self.thirst = state["thirst"]
         self.energy = state["energy"]
         self.inventory = state["inventory"]
+        self.xp = state["xp"]
+        self.level = state["level"]
         print(f"Game loaded from {filename}")
                 
