@@ -7,9 +7,18 @@ def display_intro():
     print(
         """
         -====== Human Survival Simulator CLI ======-
-        Version: v0.1.0 BETA
+        Author: indra87g
+        Version: v0.1.1 BETA
+        License: CC BY-NC-SA 3.0
         Github: https://github.com/indra87g/human-survival-simulator
-        Documentation: https://asterixdocs.github.io/human-survival-simulator
+        Bug Report: https://github.com/indra87g/human-survival-simulator/issues
+        Documentation: https://indra87g.github.io/human-survival-simulator
+        
+        * What's new in v0.1.1 ?
+        - Refactoring code
+        - Adding docs (powered by mkdocs)
+        - Gameplay rebalancing
+        - UI Improvement
         -==========================================-
         """
     )
@@ -18,7 +27,7 @@ def display_intro():
 def get_player_name():
     player_name = input("Enter your name: ")
     if not player_name:
-        print("Player name can't be empty!")
+        print("Player name cannot be empty!")
         exit()
     return player_name
 
@@ -31,10 +40,10 @@ def display_status(player):
         XP: {player.xp}/100
         HP: {player.health}
         EP: {player.energy}
+        Coins: {player.coins}
         
         Hunger: {player.hunger}
         Thirst: {player.thirst}
-        Coins: {player.coins}
         -====================-
         """
     )
@@ -48,17 +57,14 @@ def display_menu():
         2. Eat Foods
         3. Drink Water
         4. Rest
-        5. Open Lucky Box
-        6. Shop
-        7. Inventory
+        5. Shop
+        6. Inventory
         
         -====== INVENTORY
         {player.inventory}
         
         -====== GAME
-        97. Save
-        98. Load
-        99. Exit
+        97. Save     98. Load     99. Exit
         """
     )
 
@@ -121,7 +127,10 @@ def main(player):
 
 
 if __name__ == "__main__":
-    display_intro()
-    player_name = get_player_name()
-    player = Human(player_name)
-    main(player)
+    try:
+      display_intro()
+      player_name = get_player_name()
+      player = Human(player_name)
+      main(player)
+    except KeyboardInterrupt:
+        print("Program closed.")

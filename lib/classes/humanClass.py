@@ -77,6 +77,9 @@ class Human:
         else:
             print(f"{self.name} needs an Axe to chop a tree.")
 
+    """
+    TODO: improve this
+    
     def lucky_box(self):
         print("Opening lucky box with 10 coins...")
         self.coins -= 10
@@ -88,6 +91,7 @@ class Human:
         else:
             print("Loser. You lose everything, including your life :)")
             self.health = 0
+    """
             
     def gain_xp(self, amount):
         self.xp += amount
