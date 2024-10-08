@@ -1,5 +1,7 @@
 import random
 import json
+from lib.variables.main import foods, foods_energy, shop_items
+
 
 class Human:
     def __init__(
@@ -18,7 +20,7 @@ class Human:
     def search_food(self):
         food_found = random.choice([True, False])
         if food_found:
-            food = random.choice(["Berries", "Apple", "Chicken", "Rabbit"])
+            food = random.choice(foods)
             print(f"{self.name} found some {food}.")
             self.inventory.append(food)
             self.gain_xp(7)
@@ -30,7 +32,7 @@ class Human:
             self.health -= random.randint(5, 10)
 
     def eat(self, food):
-        food_energy = {"Berries": 5, "Apple": 7, "Chicken": 15, "Rabbit": 10}
+        food_energy = foods_energy
         if food in self.inventory:
             self.health = min(self.health + 5, 100)
             self.hunger = max(self.hunger - food_energy[food], 0)
@@ -49,15 +51,21 @@ class Human:
         self.energy = min(self.energy + 5, 100)
         self.gain_xp(3)
 
-    def rest(self, hours):
-        print(f"{self.name} rests for {hours} hours.")
-        self.energy = min(self.energy + hours * 3, 100)
-        self.hunger += 5
-        self.thirst += 7
-        self.gain_xp(3 * hours)
+    def sleep(self, hours):
+        if hours > 8:
+            print(f"Caution! {self.name} sleep for >8 hours!")
+            self.energy = min(self.energy + 10 * 3, 100)
+            self.hunger += 15
+            self.thirst += 21
+        else:
+          print(f"{self.name} sleep for {hours} hours.")
+          self.energy = min(self.energy + hours * 3, 100)
+          self.hunger += 5
+          self.thirst += 7
+          self.gain_xp(3 * hours)
 
     def shop(self, item):
-        inventory = {"Axe": 10, "Pickaxe": 15, "Golden Apple": 100}
+        inventory = shop_items
         if item in inventory and self.coins >= inventory[item]:
             self.coins -= inventory[item]
             self.inventory.append(item)
@@ -68,11 +76,11 @@ class Human:
     def chop_tree(self):
         if "Axe" in self.inventory:
             print(f"{self.name} is chopping a tree...")
-            self.energy -= 20
-            self.hunger += 10
-            self.thirst += 10
-            self.coins += 100
-            print(f"{self.name} chopped a tree and earned 100 coins.")
+            self.energy -= 40
+            self.hunger += 30
+            self.thirst += 25
+            self.coins += random.randint(1, 75)
+            print(f"{self.name} chopped a tree and earned 1 - 75 coins.")
             self.gain_xp(10)
         else:
             print(f"{self.name} needs an Axe to chop a tree.")
@@ -92,7 +100,7 @@ class Human:
             print("Loser. You lose everything, including your life :)")
             self.health = 0
     """
-            
+
     def gain_xp(self, amount):
         self.xp += amount
         if self.xp >= self.level * 100:
@@ -101,9 +109,7 @@ class Human:
             print(f"{self.name} leveled up to level {self.level}!")
 
     def check_survive(self):
-        if (
-            self.health <= 0
-        ):
+        if self.health <= 0 or self.thirst == 100 or self.hunger == 100:
             print(f"{self.name} has died.")
             exit()
         else:
@@ -122,7 +128,7 @@ class Human:
             "energy": self.energy,
             "inventory": self.inventory,
             "xp": self.xp,
-            "level": self.level
+            "level": self.level,
         }
         with open(filename, "w") as f:
             json.dump(state, f)
@@ -141,4 +147,3 @@ class Human:
         self.xp = state["xp"]
         self.level = state["level"]
         print(f"Game loaded from {filename}")
-                
