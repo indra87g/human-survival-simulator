@@ -1,4 +1,3 @@
-import random
 from click.termui import clear, pause
 from lib.classes.humanClass import Human
 from lib.variables.main import intro, shop_menu, player_menu, game_menu, default_player
@@ -42,7 +41,7 @@ def display_menu():
 def shop(player):
     clear()
     print(shop_menu)
-    item = input("Enter item name: ")
+    item = str(input(f"{player.name} want to buy: "))
     player.shop(item)
 
 
@@ -55,9 +54,9 @@ def next_turn(player):
 def handle_choice(choice, player):
     actions = {
         "1": player.search_food,
-        "2": lambda: player.eat(str(input("Enter the food name: "))),
+        "2": lambda: player.eat(str(input(f"{player.name} want to eat: "))),
         "3": player.drink,
-        "4": lambda: player.sleep(int(input("How much time do you need for sleep: "))),
+        "4": lambda: player.sleep(int(input(f"How much time do {player.name} need for sleep: "))),
         "5": player.chop_tree,
         "6": lambda: shop(player),
         "7": player.show_inventory,
@@ -71,14 +70,14 @@ def handle_choice(choice, player):
         next_turn(player)
     else:
         print("Invalid choice!")
-        pause()
+        next_turn(player)
 
 
 def main(player):
     clear()
     display_status(player)
     display_menu()
-    choice = input("Enter your choice: ")
+    choice = str(input("Enter your choice: "))
     handle_choice(choice, player)
 
 

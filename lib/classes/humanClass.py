@@ -22,6 +22,10 @@ class Human:
         if food_found:
             food = random.choice(foods)
             print(f"{self.name} found some {food}.")
+            self.energy -= random.randint(5, 15)
+            self.hunger += random.randint(5, 15)
+            self.thirst += random.randint(5, 15)
+            self.health -= random.randint(5, 10)
             self.inventory.append(food)
             self.gain_xp(7)
         else:
@@ -109,8 +113,17 @@ class Human:
             print(f"{self.name} leveled up to level {self.level}!")
 
     def check_survive(self):
-        if self.health <= 0 or self.thirst == 100 or self.hunger == 100:
+        if self.health < 1:
             print(f"{self.name} has died.")
+            exit()
+        elif self.thirst > 99:
+            print(f"{self.name} has died.")
+            exit()
+        elif self.hunger > 99:
+            print(f"{self.name} has died.")
+            exit()
+        elif self.energy < 1:
+            print(f"{self.name} has died")
             exit()
         else:
             print(f"{self.name} is surviving.")
