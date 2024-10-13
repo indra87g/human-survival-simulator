@@ -30,8 +30,11 @@ def display_menu():
         {player_menu}
         
         -====== INVENTORY
-        {player.inventory}
-        
+        Foods:
+          {player.foods_inventory}
+          
+        Items:
+          {player.items_inventory}
         -====== GAME MENU
         {game_menu}
         """
@@ -59,7 +62,7 @@ def handle_choice(choice, player):
         "4": lambda: player.sleep(int(input(f"How much time do {player.name} need for sleep: "))),
         "5": player.chop_tree,
         "6": lambda: shop(player),
-        "7": player.show_inventory,
+        "7": player.mining,
         "97": player.save_game,
         "98": player.load_game,
         "99": exit,

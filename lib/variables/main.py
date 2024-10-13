@@ -7,7 +7,7 @@ intro = """
         Bug Report: https://github.com/indra87g/human-survival-simulator/issues
         Documentation: https://indra87g.github.io/human-survival-simulator
         
-        * Recomended terminal window size is 100*30 !
+        * Recomended terminal window size is 120*34 !
         -==========================================-
         """
         
@@ -19,9 +19,6 @@ shop_menu = """
         
         Foods:
         Golden Apple (100c)
-        
-        Potions:
-        Healing Potion
         -====================-
         """
         
@@ -29,7 +26,7 @@ player_menu = """
         1. Search Food     2. Eat Foods
         3. Drink Water     4. Sleep
         5. Chop Tree       6. Shop
-        7. Inventory
+        7. Mining
         """
         
 game_menu = """
@@ -38,5 +35,9 @@ game_menu = """
         
 default_player = "John"
 foods = ["Berries", "Apple", "Chicken", "Rabbit"]
-foods_energy = {"Berries": 5, "Apple": 7, "Chicken": 15, "Rabbit": 10}
+foods_energy = {"Berries": 5, "Apple": 7, "Chicken": 15, "Rabbit": 10, "Golden Apple": 20}
 shop_items = {"Axe": 10, "Pickaxe": 15, "Golden Apple": 100}
+
+items = {'foods': {'Apple': 'Apple'}, 'tools': ['Axe', 'Sword']}
+
+print(items['foods']['Apple'])
