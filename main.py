@@ -1,6 +1,6 @@
 from click.termui import clear, pause
-from lib.classes.humanClass import Human
-from lib.variables.main import intro, shop_menu, player_menu, game_menu, default_player
+from src.classes.playerClass import Player
+from src.config.variables import intro, shop_menu, player_menu, game_menu, default_player
 
 
 def display_intro():
@@ -12,6 +12,8 @@ def display_status(player):
         f"""
         -====== STATUS
         {player.name} Level {player.level}
+        XP: {player.xp}/100
+        
         HP: {player.health}
         EP: {player.energy}
         Coins: {player.coins}
@@ -90,9 +92,9 @@ if __name__ == "__main__":
         player_name = str(input("Enter your name: "))
         if not player_name:
           player_name = default_player
-          player = Human(player_name)
+          player = Player(player_name)
         else:
-          player = Human(player_name)
+          player = Player(player_name)
         main(player)
     except KeyboardInterrupt:
         print("Program closed.")

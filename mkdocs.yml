@@ -1,16 +1,17 @@
 site_name: Human Survival Simulator
+docs_dir: 'src/docs'
 repo_url: https://github.com/indra87/human-survival-simulator
 
 nav:
   - Introduction: 'index.md'
   - User Guide: 'userguide.md'
-  - Contribute: 'contribute.md'
+  - Contribute: 'contributing.md'
   - Changelog: 'changelog.md'
   - FAQ: 'faq.md'
 
 theme:
   name: material
-  custom_dir: 'docs/overrides'
+  custom_dir: 'src/docs/overrides'
   features:
     - navigation.tabs
     - navigation.sections
