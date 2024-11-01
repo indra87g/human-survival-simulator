@@ -1,5 +1,5 @@
 import random, json
-from src.config.variables import foods, foods_energy, durable_items, shop_items
+from variables import foods, foods_energy, durable_items, shop_items
 
 
 class Player:
@@ -29,11 +29,10 @@ class Player:
         food_found = random.choice([True, False])
         if food_found:
             food = random.choice(foods)
-            print(f"{self.name} found some {food}.")
             self.foods_inventory.append(food)
             self.gain_xp(12)
+            return f"{self.name} found some {food}."
         else:
-            print(f"{self.name} found no food.")
             self.update_stats(
                 "bad",
                 random.randint(1, 10),
@@ -41,6 +40,7 @@ class Player:
                 random.randint(1, 10),
                 random.randint(1, 10),
             )
+            return f"{self.name} found no food."
 
     def eat(self, food):
         food_energy = foods_energy
@@ -54,9 +54,9 @@ class Player:
                 min(self.energy + food_energy[food], 100),
             )
             self.gain_xp(5 + food_energy[food])
-            print(f"{self.name} eats {food} and gains {food_energy[food]} energy.")
+            return f"{self.name} eats {food} and gains {food_energy[food]} energy."
         else:
-            print(f"{self.name} doesn't have any {food} to eat.")
+            return f"{self.name} doesn't have any {food} to eat."
 
     def drink(self):
         print(f"{self.name} drinks water.")
@@ -104,7 +104,7 @@ class Player:
             self.update_items_durability("Axe")
             self.coins += random.randint(1, 75)
         else:
-            print(f"{self.name} needs an Axe to chop a tree.")
+            return f"{self.name} needs an Axe to chop a tree."
 
     def mining(self):
         if "Pickaxe" in self.items_inventory:
@@ -123,7 +123,6 @@ class Player:
                 self.coins += 150
                 self.gain_xp(30 * stone - 10)
             else:
-                print(f"{self.name} mined and earned some coins.")
                 self.update_stats(
                     "bad",
                     random.randint(1, 25),
@@ -133,9 +132,10 @@ class Player:
                 )
                 self.coins += random.randint(10, 100)
                 self.gain_xp(10 + stone)
+                return f"{self.name} mined and earned some coins."
             self.update_items_durability("Pickaxe")
         else:
-            print(f"{self.name} needs a Pickaxe to mine.")
+            return f"{self.name} needs a Pickaxe to mine."
 
     def update_stats(self, mode, health, hunger, thirst, energy):
         if mode == "good":
@@ -157,36 +157,35 @@ class Player:
     def update_items_durability(self, items_name):
         durable_items[items_name] -= 20
         if durable_items[items_name] < 1:
-            print(f"Oh no!, {self.name}'s {items_name} is broken!")
             self.items_inventory.remove(items_name)
+            return f"Oh no!, {self.name}'s {items_name} is broken!"
             
     def gain_xp(self, amount):
         self.xp += amount
         if self.xp >= self.level * 100:
             self.xp -= self.level * 100
             self.level += 1
-            print(f"{self.name} leveled up to level {self.level}!")
             if self.level == 10:
                 print(f"{self.name}'s health is increased to 150!")
                 self.health = 150
             elif self.level == 20:
                 print(f"{self.name}'s energy is increased to 150")
                 self.energy = 150
+            return f"{self.name} leveled up to level {self.level}!"
 
     def check_survive(self):
         if self.health < 1 or self.thirst > 99 or self.hunger > 99 or self.energy < 1:
             if "Totem of Undying" in self.items_inventory:
-                print(f"{self.name} is saved from death by a strong holy power!")
                 self.health = 100
                 self.hunger = 0
                 self.thirst = 0
                 self.energy = 50
                 self.items_inventory.remove("Totem of Undying")
+                return f"{self.name} is saved from death by a strong holy power!"
             else:              
-                print(f"{self.name} has died.")
-                exit()
+                return f"{self.name} has died."
         else:
-            print(f"{self.name} is surviving.")
+            return f"{self.name} is surviving."
 
     def save_game(self, filename="savegame.json"):
         state = {
@@ -203,7 +202,7 @@ class Player:
         }
         with open(filename, "w") as f:
             json.dump(state, f)
-        print(f"Game saved to {filename}.")
+        return f"Game saved to {filename}."
 
     def load_game(self, filename="savegame.json"):
         with open(filename, "r") as f:
@@ -218,20 +217,4 @@ class Player:
         self.items_inventory = state["items_inventory"]
         self.xp = state["xp"]
         self.level = state["level"]
-        print(f"Game loaded from {filename}")
-
-    """
-    TODO: improve this
-    
-    def lucky_box(self):
-        print("Opening lucky box with 10 coins...")
-        self.coins -= 10
-        win = random.choice([True, False])
-        if win:
-            print("Nice, You win!")
-            self.health = min(self.health + 25, 100)
-            self.hunger = 0
-        else:
-            print("Loser. You lose everything, including your life :)")
-            self.health = 0
-    """
+        return f"Game loaded from {filename}"

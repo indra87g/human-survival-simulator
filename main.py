@@ -1,32 +1,50 @@
 from click.termui import clear, pause
-from src.classes.playerClass import Player
-from src.config.variables import intro, shop_menu, player_menu, game_menu, default_player
+from src.game.player import Player
+from src.utils.variables import intro, shop_menu, player_menu, game_menu, default_player
+from src.utils.helper import fore, back, style
 
 
 def display_intro():
-    print(intro)
+    print(fore.GREEN + intro)
 
 
 def display_status(player):
-    print(
-        f"""
-        -====== STATUS
-        {player.name} Level {player.level}
-        XP: {player.xp}/100
+    if player.health <= 50:
+        print(fore.RED +
+            f"""
+            -====== STATUS
+            {player.name} Level {player.level}
+            XP: {player.xp}/100
         
-        HP: {player.health}
-        EP: {player.energy}
-        Coins: {player.coins}
+            HP: {player.health}
+            EP: {player.energy}
+            Coins: {player.coins}
         
-        Hunger: {player.hunger}
-        Thirst: {player.thirst}
-        -====================-
-        """
-    )
+            Hunger: {player.hunger}
+            Thirst: {player.thirst}
+            -====================-
+            """
+        )
+    else:
+        print(fore.GREEN +
+            f"""
+            -====== STATUS
+            {player.name} Level {player.level}
+            XP: {player.xp}/100
+        
+            HP: {player.health}
+            EP: {player.energy}
+            Coins: {player.coins}
+        
+            Hunger: {player.hunger}
+            Thirst: {player.thirst}
+            -====================-
+            """
+        )
 
 
 def display_menu():
-    print(
+    print(fore.YELLOW +
         f"""
         -====== PLAYER MENU
         {player_menu}
@@ -37,6 +55,7 @@ def display_menu():
           
         Items:
           {player.items_inventory}
+          
         -====== GAME MENU
         {game_menu}
         """
@@ -45,8 +64,8 @@ def display_menu():
 
 def shop(player):
     clear()
-    print(shop_menu)
-    item = str(input(f"{player.name} want to buy: "))
+    print(fore.YELLOW + shop_menu)
+    item = str(input(fore.MAGENTA + f"{player.name} want to buy: "))
     player.shop(item)
 
 
@@ -59,9 +78,9 @@ def next_turn(player):
 def handle_choice(choice, player):
     actions = {
         "1": player.search_food,
-        "2": lambda: player.eat(str(input(f"{player.name} want to eat: "))),
+        "2": lambda: player.eat(str(input(fore.MAGENTA + f"{player.name} want to eat: "))),
         "3": player.drink,
-        "4": lambda: player.sleep(int(input(f"How much time do {player.name} need for sleep: "))),
+        "4": lambda: player.sleep(int(input(fore.MAGENTA + f"How much time do {player.name} need for sleep: "))),
         "5": player.chop_tree,
         "6": lambda: shop(player),
         "7": player.mining,
@@ -74,7 +93,7 @@ def handle_choice(choice, player):
         action()
         next_turn(player)
     else:
-        print("Invalid choice!")
+        print(fore.RED + "Invalid choice!")
         next_turn(player)
 
 
@@ -82,14 +101,14 @@ def main(player):
     clear()
     display_status(player)
     display_menu()
-    choice = str(input("Enter your choice: "))
+    choice = str(input(fore.MAGENTA + "Enter your choice: "))
     handle_choice(choice, player)
 
 
 if __name__ == "__main__":
     try:
         display_intro()
-        player_name = str(input("Enter your name: "))
+        player_name = str(input(fore.MAGENTA + "Enter your name: "))
         if not player_name:
           player_name = default_player
           player = Player(player_name)
@@ -97,4 +116,4 @@ if __name__ == "__main__":
           player = Player(player_name)
         main(player)
     except KeyboardInterrupt:
-        print("Program closed.")
+        print("\nProgram closed.")

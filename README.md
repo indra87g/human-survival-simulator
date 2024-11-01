@@ -5,7 +5,7 @@
 [Code of Conduct](src/docs/code_of_conduct.md)
 [Changelog](src/docs/changelog.md)
 [Contributing](src/docs/contributing.md)
-[User Guide](src/docs/userguide.md)
+[API](src/docs/api.md)
 
 A simple command line text based survival game, written in Python and designed for developers.
 Other implementation is coming soon!
@@ -24,3 +24,12 @@ pip install click
 python main.py
 ```
 
+- Format
+```sh
+make format
+```
+
+- Lint
+```sh
+make lint
+```

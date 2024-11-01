@@ -45,5 +45,5 @@ foods_energy = {
     "Rabbit": 10,
     "Golden Apple": 20,
 }
-durable_items = {"Axe": 100, "Pickaxe": 100, "Sword": 100}
+items_durability = {"Axe": 100, "Pickaxe": 100, "Sword": 100}
 shop_items = {"Axe": 10, "Pickaxe": 15, "Golden Apple": 100, "Totem of Undying": 1000}
