@@ -1,7 +1,7 @@
 intro = """
         -====== Human Survival Simulator CLI ======-
         Author: indra87g
-        Version: v0.1.2 BETA
+        Version: v0.2.0 BETA
         License: CC BY-NC-SA 3.0
         Github: https://github.com/indra87g/human-survival-simulator
         Bug Report: https://github.com/indra87g/human-survival-simulator/issues
