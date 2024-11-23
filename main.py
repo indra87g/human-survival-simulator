@@ -1,7 +1,7 @@
 from click.termui import clear, pause
 from src.game.player import Player
-from src.utils.variables import intro, shop_menu, player_menu, game_menu, default_player
-from src.utils.helper import fore, back, style
+from src.utils.variables import intro, shop_menu, player_menu, game_menu
+from src.utils.helper import fore, back, style, fake
 
 
 def display_intro():
@@ -10,8 +10,9 @@ def display_intro():
 
 def display_status(player):
     if player.health <= 50:
-        print(fore.RED +
-            f"""
+        print(
+            fore.RED
+            + f"""
             -====== STATUS
             {player.name} Level {player.level}
             XP: {player.xp}/100
@@ -26,8 +27,9 @@ def display_status(player):
             """
         )
     else:
-        print(fore.GREEN +
-            f"""
+        print(
+            fore.GREEN
+            + f"""
             -====== STATUS
             {player.name} Level {player.level}
             XP: {player.xp}/100
@@ -44,8 +46,9 @@ def display_status(player):
 
 
 def display_menu():
-    print(fore.YELLOW +
-        f"""
+    print(
+        fore.YELLOW
+        + f"""
         -====== PLAYER MENU
         {player_menu}
         
@@ -78,9 +81,15 @@ def next_turn(player):
 def handle_choice(choice, player):
     actions = {
         "1": player.search_food,
-        "2": lambda: player.eat(str(input(fore.MAGENTA + f"{player.name} want to eat: "))),
+        "2": lambda: player.eat(
+            str(input(fore.MAGENTA + f"{player.name} want to eat: "))
+        ),
         "3": player.drink,
-        "4": lambda: player.sleep(int(input(fore.MAGENTA + f"How much time do {player.name} need for sleep: "))),
+        "4": lambda: player.sleep(
+            int(
+                input(fore.MAGENTA + f"How much time do {player.name} need for sleep: ")
+            )
+        ),
         "5": player.chop_tree,
         "6": lambda: shop(player),
         "7": player.mining,
@@ -110,10 +119,10 @@ if __name__ == "__main__":
         display_intro()
         player_name = str(input(fore.MAGENTA + "Enter your name: "))
         if not player_name:
-          player_name = default_player
-          player = Player(player_name)
+            player_name = fake.first_name()
+            player = Player(player_name)
         else:
-          player = Player(player_name)
+            player = Player(player_name)
         main(player)
     except KeyboardInterrupt:
         print("\nProgram closed.")

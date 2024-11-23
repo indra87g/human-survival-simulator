@@ -1,5 +1,5 @@
 setup:
-	@pip install -r requirements.txt
+	@python -m venv .venv
 
 format:
 	@black **/**/*.py

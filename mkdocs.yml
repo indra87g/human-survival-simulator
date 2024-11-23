@@ -8,7 +8,7 @@ nav:
   - Contribute: 'contributing.md'
   - Changelog: 'changelog.md'
   - FAQ: 'faq.md'
-  - API: 'api.md'
+  - Developer Guide: 'devguide.md'
 
 theme:
   name: material

@@ -1,8 +1,10 @@
 # Changelog
 
-## v0.2.0 -  (Major, Latest)
+## v1.0.0 - (Latest)
+* Updated: Use ```Faker``` for default player name
 
-* Added: Documentation (readme, changelog, contributing, code of conduct)
+## v0.2.0 -  (Major)
+
 * Added: Mining (Pickaxe required)
 * Added: ```update_stats()``` method to make code readable
 * Added: Random event when chopping tree and mining (found golden apple, found diamond)

@@ -36,7 +36,6 @@ game_menu = """
         97. Save     98. Load     99. Exit
         """
 
-default_player = "John"
 foods = ["Berries", "Apple", "Chicken", "Rabbit"]
 foods_energy = {
     "Berries": 5,

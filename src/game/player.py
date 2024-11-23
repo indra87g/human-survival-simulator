@@ -55,7 +55,10 @@ class Player:
                 min(self.energy + food_energy[food], 100),
             )
             self.gain_xp(5 + food_energy[food])
-            print(fore.GREEN + f"{self.name} eats {food} and gains {food_energy[food]} energy.")
+            print(
+                fore.GREEN
+                + f"{self.name} eats {food} and gains {food_energy[food]} energy."
+            )
         else:
             print(fore.RED + f"{self.name} doesn't have any {food} to eat.")
 
@@ -93,7 +96,11 @@ class Player:
             print(fore.GREEN + f"{self.name} is chopping a tree...")
             wood = random.randint(1, 25)
             if found_gapple:
-                print(fore.BLUE + back.GREEN + f"Lucky! {self.name} found 1 Golden Apple when chopping a tree!")
+                print(
+                    fore.BLUE
+                    + back.GREEN
+                    + f"Lucky! {self.name} found 1 Golden Apple when chopping a tree!"
+                )
                 self.foods_inventory.append("Golden Apple")
                 self.gain_xp(20 * wood - 5)
             else:
@@ -113,7 +120,11 @@ class Player:
             print(fore.GREEN + f"{self.name} is mining...")
             stone = random.randint(1, 25)
             if found_diamond:
-                print(fore.BLUE + back.GREEN + f"Lucky! {self.name} found diamond and earned 150 coin!")
+                print(
+                    fore.BLUE
+                    + back.GREEN
+                    + f"Lucky! {self.name} found diamond and earned 150 coin!"
+                )
                 self.update_stats(
                     "bad",
                     random.randint(5, 50),
@@ -154,36 +165,52 @@ class Player:
             self.hunger += hunger
             self.thirst += thirst
             self.energy += energy
-            
+
     def update_items_durability(self, items_name):
         items_durability[items_name] -= 20
         if items_durability[items_name] < 1:
             print(fore.RED + f"Oh no!, {self.name}'s {items_name} is broken!")
             self.items_inventory.remove(items_name)
-            
+
     def gain_xp(self, amount):
         self.xp += amount
         if self.xp >= self.level * 100:
             self.xp -= self.level * 100
             self.level += 1
-            print(fore.GREEN + back.YELLOW + f"{self.name} leveled up to level {self.level}!")
+            print(
+                fore.GREEN
+                + back.YELLOW
+                + f"{self.name} leveled up to level {self.level}!"
+            )
             if self.level == 10:
-                print(fore.GREEN + back.YELLOW + f"{self.name}'s health is increased to 150!")
+                print(
+                    fore.GREEN
+                    + back.YELLOW
+                    + f"{self.name}'s health is increased to 150!"
+                )
                 self.health = 150
             elif self.level == 20:
-                print(fore.GREEN + back.YELLOW + f"{self.name}'s energy is increased to 150")
+                print(
+                    fore.GREEN
+                    + back.YELLOW
+                    + f"{self.name}'s energy is increased to 150"
+                )
                 self.energy = 150
 
     def check_survive(self):
         if self.health < 1 or self.thirst > 99 or self.hunger > 99 or self.energy < 1:
             if "Totem of Undying" in self.items_inventory:
-                print(fore.GREEN + back.YELLOW + f"{self.name} is saved from death by a strong holy power!")
+                print(
+                    fore.GREEN
+                    + back.YELLOW
+                    + f"{self.name} is saved from death by a strong holy power!"
+                )
                 self.health = 100
                 self.hunger = 0
                 self.thirst = 0
                 self.energy = 50
                 self.items_inventory.remove("Totem of Undying")
-            else:              
+            else:
                 print(fore.RED + f"{self.name} has died.")
                 exit()
         else:
